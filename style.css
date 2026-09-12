@@ -1,0 +1,881 @@
+/* =====================================================================
+   FOCUSFLOW — STYLESHEET
+   "Lock in. Get things done."
+   Sections:
+   1. Reset            9. Focus area
+   2. Variables       10. Timer
+   3. Base typography 11. Tasks
+   4. Background      12. Daily goal
+   5. Decorative      13. Focus Mode
+   6. Glass effects   14. Buttons
+   7. Header          15. Animations
+   8. Hero            16. Responsive design
+===================================================================== */
+
+
+/* =====================================================================
+   1. RESET
+===================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+h1, h2, h3, p, ul, li, figure, form { margin: 0; padding: 0; }
+ul { list-style: none; }
+button, input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+
+.hidden { display: none !important; }
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: #fff;
+  color: #46323d;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 12px 12px;
+  z-index: 999;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 0; }
+
+:focus-visible {
+  outline: 3px solid var(--color-lavender-strong);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+
+/* =====================================================================
+   2. VARIABLES
+===================================================================== */
+:root {
+  /* --- palette --- */
+  --color-bg-base: #fff8f2;
+  --color-cream: #fffaf1;
+
+  --color-pink-soft: #ffe1ee;
+  --color-pink-strong: #ff9ecb;
+
+  --color-mint-soft: #d3f5e4;
+  --color-mint-strong: #8fe3c0;
+
+  --color-lavender-soft: #e6defa;
+  --color-lavender-strong: #c9b6f0;
+
+  --color-yellow-soft: #fff3c4;
+  --color-yellow-strong: #ffe07d;
+
+  --color-peach-soft: #ffddc7;
+  --color-peach-strong: #ffb98a;
+
+  --color-sky-soft: #cfeeff;
+
+  --color-text-strong: #46323d;
+  --color-text-main: #5b4a55;
+  --color-text-muted: #93808c;
+
+  /* --- glass --- */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-strong: rgba(255, 255, 255, 0.68);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-blur: 18px;
+  --shadow-soft: 0 10px 34px rgba(190, 150, 170, 0.20);
+  --shadow-pop: 0 16px 40px rgba(190, 150, 170, 0.28);
+
+  /* --- type --- */
+  --font-cute: 'Fredoka', 'Segoe UI', sans-serif;
+  --font-mono-retro: 'VT323', 'Courier New', monospace;
+
+  /* --- shape / spacing --- */
+  --radius-lg: 28px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+  --gap-lg: 2rem;
+  --gap-md: 1.25rem;
+  --gap-sm: 0.75rem;
+
+  /* --- z layers --- */
+  --z-bg: 0;
+  --z-blob: 1;
+  --z-deco: 2;
+  --z-card: 5;
+  --z-sticker: 8;
+  --z-header: 20;
+  --z-fab: 25;
+  --z-focus-exit: 60;
+}
+
+
+/* =====================================================================
+   3. BASE TYPOGRAPHY
+===================================================================== */
+body {
+  font-family: var(--font-cute);
+  font-weight: 400;
+  color: var(--color-text-main);
+  line-height: 1.5;
+  background-color: var(--color-bg-base);
+}
+
+.mono {
+  font-family: var(--font-mono-retro);
+  letter-spacing: 0.04em;
+}
+
+.section-label {
+  font-family: var(--font-mono-retro);
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.hero-heading {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  line-height: 1.25;
+  color: var(--color-text-strong);
+  max-width: 34ch;
+}
+
+.hero-sub {
+  margin-top: 0.85rem;
+  color: var(--color-text-main);
+  max-width: 40ch;
+  font-size: 1.05rem;
+}
+
+.empty-state {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  padding: 0.5rem 0 0.25rem;
+}
+
+
+/* =====================================================================
+   4. BACKGROUND
+===================================================================== */
+.background-scene {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  z-index: var(--z-blob);
+}
+.blob--pink {
+  width: 34vw; height: 34vw;
+  top: -10%; left: -8%;
+  background: radial-gradient(circle, var(--color-pink-soft), transparent 70%);
+}
+.blob--mint {
+  width: 30vw; height: 30vw;
+  bottom: -12%; right: -6%;
+  background: radial-gradient(circle, var(--color-mint-soft), transparent 70%);
+}
+.blob--lavender {
+  width: 26vw; height: 26vw;
+  top: 30%; right: 12%;
+  background: radial-gradient(circle, var(--color-lavender-soft), transparent 70%);
+}
+.blob--peach {
+  width: 22vw; height: 22vw;
+  bottom: 8%; left: 18%;
+  background: radial-gradient(circle, var(--color-peach-soft), transparent 70%);
+}
+
+
+/* =====================================================================
+   5. DECORATIVE ELEMENTS
+===================================================================== */
+.deco {
+  position: absolute;
+  top: var(--top, 10%);
+  left: var(--left, 10%);
+  z-index: var(--z-deco);
+  width: 64px;
+  opacity: 0.9;
+}
+.deco--cassette { width: 92px; }
+.deco--camera   { width: 80px; }
+.deco--butterfly{ width: 72px; opacity: 0.8; }
+.deco--cd       { width: 56px; }
+.deco--flower   { width: 58px; }
+.deco--star     { width: 26px; }
+.deco--heart    { width: 30px; }
+
+.sticker {
+  position: absolute;
+  z-index: var(--z-sticker);
+  font-family: var(--font-mono-retro);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  color: var(--color-text-strong);
+  box-shadow: 0 6px 14px rgba(190, 150, 170, 0.22);
+}
+.sticker--tape {
+  background: var(--color-yellow-soft);
+  top: -14px;
+  right: 28px;
+  transform: rotate(-6deg);
+  border: 1px dashed rgba(150, 120, 60, 0.35);
+}
+
+
+/* =====================================================================
+   6. GLASS EFFECTS
+===================================================================== */
+.glass-panel {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  z-index: var(--z-card);
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 40%);
+  pointer-events: none;
+}
+
+.card {
+  padding: 1.75rem 1.75rem 1.5rem;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-pop), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+.tilt-left  { transform: rotate(-0.6deg); }
+.tilt-right { transform: rotate(0.6deg); }
+.tilt-left:hover  { transform: rotate(-0.6deg) translateY(-3px); }
+.tilt-right:hover { transform: rotate(0.6deg) translateY(-3px); }
+
+
+/* =====================================================================
+   7. HEADER
+===================================================================== */
+.site-header {
+  position: sticky;
+  top: 0.75rem;
+  margin: 0.75rem auto 0;
+  max-width: 1180px;
+  z-index: var(--z-header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 999px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.brand__icon {
+  color: var(--color-pink-strong);
+  font-size: 1.2rem;
+}
+.brand__name {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-text-strong);
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  padding: 0.15rem 0.7rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-mint-strong);
+  box-shadow: 0 0 0 3px rgba(143, 227, 192, 0.35);
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+.clock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.15;
+  font-size: 1.05rem;
+  color: var(--color-text-strong);
+}
+#clockDate {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.icon-button {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.icon-button:hover { transform: scale(1.08); background: #fff; }
+.icon-button:active { transform: scale(0.95); }
+
+
+/* =====================================================================
+   8. HERO
+===================================================================== */
+.hero-card-wrap {
+  grid-area: hero;
+  position: relative;
+}
+
+/* Generic wrapper used anywhere a decoration needs to sit genuinely
+   behind a glass card: part of it is covered (and blurred/tinted by
+   the card's backdrop-filter) while the rest peeks out crisp. */
+.card-wrap {
+  position: relative;
+}
+.peek-deco {
+  position: absolute;
+  top: -22px;
+  left: -18px;
+  width: 92px;
+  z-index: 1; /* below the glass-panel's z-index so it renders "through" it */
+  opacity: 0.95;
+}
+
+
+/* =====================================================================
+   9. FOCUS AREA
+===================================================================== */
+.focus-card { grid-area: focus; }
+
+.focus-display-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.focus-text {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-text-strong);
+}
+
+.focus-form {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.focus-form input,
+.task-form input,
+.custom-duration input,
+.goal-form input {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-cute);
+  font-size: 1rem;
+  color: var(--color-text-strong);
+}
+.focus-form input:focus,
+.task-form input:focus,
+.custom-duration input:focus,
+.goal-form input:focus {
+  background: #fff;
+}
+
+
+/* =====================================================================
+   10. TIMER
+===================================================================== */
+.timer-card {
+  grid-area: timer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-ring-wrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0.5rem auto 1.25rem;
+}
+.timer-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.timer-ring__track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 14;
+}
+.timer-ring__progress {
+  fill: none;
+  stroke: url(#ringGradient);
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-dasharray: 659.73; /* 2 * PI * r(105) — must match RING_CIRCUMFERENCE in script.js */
+  stroke-dashoffset: 659.73; /* starts empty; JS recalculates this on init and on every tick */
+  transition: stroke-dashoffset 1s linear;
+}
+.timer-active .timer-ring__progress {
+  filter: drop-shadow(0 0 8px rgba(201, 182, 240, 0.55));
+}
+
+.timer-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+}
+.timer-display {
+  font-size: 3.1rem;
+  color: var(--color-text-strong);
+  line-height: 1;
+}
+.timer-state {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+}
+
+.timer-presets {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+.preset-btn {
+  font-family: var(--font-mono-retro);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: var(--color-text-main);
+  transition: all 0.2s ease;
+}
+.preset-btn.is-active {
+  background: var(--color-lavender-strong);
+  color: #fff;
+  border-color: var(--color-lavender-strong);
+}
+.preset-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.custom-duration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.custom-duration input { max-width: 80px; flex: none; text-align: center; }
+.custom-duration input:disabled,
+.custom-duration button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.timer-controls {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.session-count {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+
+/* =====================================================================
+   11. TASKS
+===================================================================== */
+.tasks-card { grid-area: tasks; }
+
+.task-form {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.task-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.task-item.leaving {
+  opacity: 0;
+  transform: translateX(12px) scale(0.97);
+}
+
+.task-checkbox {
+  flex: none;
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  border: 2px solid var(--color-lavender-strong);
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  color: transparent;
+  transition: all 0.2s ease;
+}
+.task-checkbox[aria-checked="true"] {
+  background: var(--color-mint-strong);
+  border-color: var(--color-mint-strong);
+  color: #fff;
+}
+
+.task-text {
+  flex: 1;
+  font-size: 1.02rem;
+  word-break: break-word;
+}
+.task-item.is-done .task-text {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.task-delete {
+  flex: none;
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.task-delete:hover { color: #d9628b; background: rgba(255, 158, 203, 0.18); }
+
+.task-progress {
+  margin-top: 0.9rem;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+
+/* =====================================================================
+   12. DAILY GOAL
+===================================================================== */
+.goal-card { grid-area: goal; text-align: center; }
+
+.goal-hearts {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 1.4rem;
+}
+.goal-hearts .goal-heart {
+  color: var(--color-pink-strong);
+  opacity: 0.35;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.goal-hearts .goal-heart.is-filled { opacity: 1; transform: scale(1.08); }
+
+.goal-text { color: var(--color-text-strong); font-size: 1.15rem; margin-bottom: 0.6rem; }
+
+.goal-form {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.goal-form input { max-width: 80px; flex: none; text-align: center; }
+
+
+/* =====================================================================
+   13. FOCUS MODE
+===================================================================== */
+.focus-mode-fab {
+  grid-area: fab;
+  justify-self: center;
+  font-family: var(--font-mono-retro);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, var(--color-pink-strong), var(--color-lavender-strong));
+  color: #fff;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-pop);
+  transition: transform 0.2s ease;
+}
+.focus-mode-fab:hover { transform: scale(1.04); }
+.focus-mode-fab:active { transform: scale(0.97); }
+
+.exit-focus-btn {
+  position: fixed;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-focus-exit);
+  font-family: var(--font-mono-retro);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: var(--color-text-strong);
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+}
+
+body.focus-mode .background-scene,
+body.focus-mode .site-header .header-controls .clock,
+body.focus-mode .hero-card,
+body.focus-mode .tasks-card,
+body.focus-mode .goal-card,
+body.focus-mode .site-footer,
+body.focus-mode .focus-mode-fab {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96);
+  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+body.focus-mode .app-grid {
+  grid-template-columns: minmax(0, 560px);
+  grid-template-areas:
+    "focus"
+    "timer";
+  justify-content: center;
+  padding-top: 6vh;
+}
+
+body.focus-mode .timer-card {
+  transform: scale(1.08);
+}
+
+body.focus-mode .focus-card {
+  text-align: center;
+}
+
+
+/* =====================================================================
+   14. BUTTONS
+===================================================================== */
+.btn {
+  font-family: var(--font-mono-retro);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  padding: 0.6rem 1.3rem;
+  border-radius: 999px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.btn--primary {
+  background: linear-gradient(135deg, var(--color-pink-strong), var(--color-peach-strong));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(255, 158, 203, 0.35);
+}
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  color: var(--color-text-strong);
+}
+.btn--small { padding: 0.4rem 1rem; font-size: 0.95rem; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.97); }
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* =====================================================================
+   15. ANIMATIONS
+===================================================================== */
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(143, 227, 192, 0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(143, 227, 192, 0.15); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(3deg); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+@keyframes rise-fade {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(-90px) scale(1.1); opacity: 0; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.is-invalid {
+  animation: shake 0.4s ease;
+  border-color: var(--color-pink-strong) !important;
+}
+
+.float { animation: float 6s ease-in-out infinite; }
+.float-slow { animation: float-slow 9s ease-in-out infinite; }
+.spin-slow { animation: spin-slow 22s linear infinite; }
+.twinkle { animation: twinkle 3.2s ease-in-out infinite; }
+.twinkle--delay { animation-delay: 1.4s; }
+.pulse { animation: pulse 3.6s ease-in-out infinite; }
+
+.celebration-particle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.4rem;
+  animation: rise-fade 1.4s ease-out forwards;
+  z-index: 30;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float, .float-slow, .spin-slow, .twinkle, .pulse, .status-dot {
+    animation: none !important;
+  }
+  .card, .btn, .icon-button, .focus-mode-fab {
+    transition: none !important;
+  }
+}
+
+
+/* =====================================================================
+   16. RESPONSIVE DESIGN
+===================================================================== */
+.app-grid {
+  max-width: 1180px;
+  margin: 2rem auto 4rem;
+  padding: 0 1.5rem;
+  display: grid;
+  gap: var(--gap-lg) var(--gap-lg);
+  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-areas:
+    "hero    focus"
+    "timer   tasks"
+    "timer   goal"
+    "fab     fab";
+}
+
+@media (max-width: 980px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "hero"
+      "focus"
+      "timer"
+      "tasks"
+      "goal"
+      "fab";
+  }
+  .deco--butterfly, .deco--camera, .deco--cassette { width: 54px; }
+  .deco--cd { width: 42px; }
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    flex-wrap: wrap;
+    border-radius: var(--radius-md);
+    justify-content: center;
+    text-align: center;
+  }
+  .header-controls { width: 100%; justify-content: space-between; }
+  .card { padding: 1.4rem 1.25rem 1.2rem; }
+  .timer-ring-wrap { width: 190px; height: 190px; }
+  .timer-display { font-size: 2.5rem; }
+  .deco { display: none; }
+  .peek-deco { width: 58px; top: -16px; left: -12px; }
+  .blob { opacity: 0.4; }
+  .sticker--tape { right: 14px; }
+  body.focus-mode .app-grid { padding-top: 3vh; }
+}
+
+@media (max-width: 400px) {
+  .focus-form, .task-form { flex-direction: column; }
+  .focus-form .btn, .task-form .btn { width: 100%; }
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusFlow — Lock in. Get things done.</title>
+  <meta name="description" content="FocusFlow — a nostalgic Y2K-inspired focus workspace for students. Set a focus, run a timer, track your little things, and lock in." />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath fill='%23ff9ecb' d='M16 29C16 29 0 18.5 0 8.8C0 3.9 3.8 0 8.5 0C11.6 0 14.3 1.7 16 4.3C17.7 1.7 20.4 0 23.5 0C28.2 0 32 3.9 32 8.8C32 18.5 16 29 16 29Z'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ============================================================
+       BACKGROUND SCENE — layered pastel blobs + retro/y2k decor
+       All decorative, hidden from assistive tech.
+  ============================================================ -->
+  <div class="background-scene" aria-hidden="true">
+    <div class="blob blob--pink"></div>
+    <div class="blob blob--mint"></div>
+    <div class="blob blob--lavender"></div>
+    <div class="blob blob--peach"></div>
+
+    <div class="deco deco--cassette float-slow" style="--top:10%; --left:5%;">
+      <svg viewBox="0 0 100 64" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="98" height="62" rx="10" fill="#fff3c4" stroke="#e8c98a" stroke-width="2"/>
+        <rect x="14" y="12" width="72" height="24" rx="4" fill="#fffaf1" stroke="#e8c98a" stroke-width="1.5"/>
+        <circle cx="32" cy="24" r="9" fill="none" stroke="#c9b6f0" stroke-width="3"/>
+        <circle cx="68" cy="24" r="9" fill="none" stroke="#c9b6f0" stroke-width="3"/>
+        <rect x="10" y="44" width="80" height="10" rx="3" fill="#ffe1ee"/>
+      </svg>
+    </div>
+
+    <div class="deco deco--star twinkle" style="--top:16%; --left:88%;">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#ffe07d" d="M12 0l3.09 6.26L22 7.27l-5 4.87L18.18 19 12 15.77 5.82 19 7 12.14l-5-4.87 6.91-1.01L12 0z"/></svg>
+    </div>
+
+    <div class="deco deco--star twinkle twinkle--delay" style="--top:70%; --left:9%;">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#c9b6f0" d="M12 0l3.09 6.26L22 7.27l-5 4.87L18.18 19 12 15.77 5.82 19 7 12.14l-5-4.87 6.91-1.01L12 0z"/></svg>
+    </div>
+
+    <div class="deco deco--camera float-slow" style="--top:78%; --left:87%;">
+      <svg viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="14" width="88" height="44" rx="8" fill="#d3f5e4" stroke="#8fe3c0" stroke-width="2"/>
+        <rect x="26" y="1" width="30" height="16" rx="4" fill="#d3f5e4" stroke="#8fe3c0" stroke-width="2"/>
+        <circle cx="45" cy="38" r="16" fill="#fffaf1" stroke="#8fe3c0" stroke-width="3"/>
+        <circle cx="45" cy="38" r="7" fill="#c9b6f0"/>
+        <circle cx="74" cy="24" r="4" fill="#ff9ecb"/>
+      </svg>
+    </div>
+
+    <div class="deco deco--butterfly float" style="--top:36%; --left:93%;">
+      <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#e6defa"><ellipse cx="22" cy="20" rx="18" ry="14"/><ellipse cx="22" cy="42" rx="14" ry="10"/><ellipse cx="58" cy="20" rx="18" ry="14"/><ellipse cx="58" cy="42" rx="14" ry="10"/></g>
+        <rect x="37" y="10" width="6" height="42" rx="3" fill="#b98aa8"/>
+      </svg>
+    </div>
+
+    <div class="deco deco--heart pulse" style="--top:6%; --left:42%;">
+      <svg viewBox="0 0 32 29" xmlns="http://www.w3.org/2000/svg"><path fill="#ff9ecb" d="M16 29C16 29 0 18.5 0 8.8C0 3.9 3.8 0 8.5 0C11.6 0 14.3 1.7 16 4.3C17.7 1.7 20.4 0 23.5 0C28.2 0 32 3.9 32 8.8C32 18.5 16 29 16 29Z"/></svg>
+    </div>
+
+    <div class="deco deco--cd spin-slow" style="--top:4%; --left:70%;">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="cdGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#cfeeff"/><stop offset="35%" stop-color="#ffd6e8"/><stop offset="70%" stop-color="#fff3c4"/><stop offset="100%" stop-color="#d3f5e4"/></linearGradient></defs>
+        <circle cx="30" cy="30" r="28" fill="url(#cdGradient)" stroke="#e0d6ee" stroke-width="1"/>
+        <circle cx="30" cy="30" r="6" fill="#fffaf1"/>
+        <circle cx="30" cy="30" r="2" fill="#cbb8dd"/>
+      </svg>
+    </div>
+
+    <div class="deco deco--flower float" style="--top:58%; --left:2%;">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#ffd6e8"><ellipse cx="30" cy="14" rx="10" ry="14"/><ellipse cx="30" cy="46" rx="10" ry="14"/><ellipse cx="14" cy="30" rx="14" ry="10"/><ellipse cx="46" cy="30" rx="14" ry="10"/></g>
+        <circle cx="30" cy="30" r="9" fill="#ffe07d"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header class="site-header glass-panel">
+    <div class="brand">
+      <span class="brand__icon" aria-hidden="true">♡</span>
+      <span class="brand__name">FocusFlow</span>
+      <span class="status-pill">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="mono">SYSTEM ONLINE_</span>
+      </span>
+    </div>
+
+    <div class="header-controls">
+      <div class="clock mono" aria-live="off">
+        <span id="clockTime">--:--:-- --</span>
+        <span id="clockDate">--- • --- --</span>
+      </div>
+      <button id="soundToggle" class="icon-button" type="button" aria-pressed="true" aria-label="Mute sounds">
+        <span id="soundIcon" aria-hidden="true">🔊</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+  ============================================================ -->
+  <main id="main-content" class="app-grid">
+
+    <div class="card-wrap hero-card-wrap">
+      <div class="peek-deco float" aria-hidden="true">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#ffd6e8"><ellipse cx="30" cy="14" rx="10" ry="14"/><ellipse cx="30" cy="46" rx="10" ry="14"/><ellipse cx="14" cy="30" rx="14" ry="10"/><ellipse cx="46" cy="30" rx="14" ry="10"/></g>
+          <circle cx="30" cy="30" r="9" fill="#ffe07d"/>
+        </svg>
+      </div>
+      <section class="card hero-card glass-panel tilt-left" aria-labelledby="heroHeading">
+        <p class="section-label mono">// WELCOME BACK</p>
+        <h1 id="heroHeading" class="hero-heading">okay... let's actually get this done. <span aria-hidden="true">✦</span></h1>
+        <p class="hero-sub">one thing at a time ♡ your little productivity corner is ready when you are.</p>
+        <span class="sticker sticker--tape" aria-hidden="true">est. 2026</span>
+      </section>
+    </div>
+
+    <section class="card focus-card glass-panel tilt-right" aria-labelledby="focusHeading">
+      <h2 id="focusHeading" class="section-label mono">TODAY'S FOCUS</h2>
+
+      <div id="focusDisplayWrap" class="focus-display-wrap">
+        <p id="focusDisplay" class="focus-text">nothing set yet ♡</p>
+        <button id="focusEditBtn" class="btn btn--ghost" type="button">SET FOCUS</button>
+      </div>
+
+      <form id="focusForm" class="focus-form hidden">
+        <label for="focusInput" class="sr-only">What are you focusing on?</label>
+        <input id="focusInput" type="text" maxlength="80" placeholder="e.g. Finish Physics Chapter 3" autocomplete="off" />
+        <button type="submit" class="btn btn--primary">SAVE</button>
+      </form>
+    </section>
+
+    <section class="card timer-card glass-panel" aria-labelledby="timerHeading">
+      <h2 id="timerHeading" class="section-label mono">FOCUS SESSION</h2>
+
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 240 240" role="img" aria-label="Session progress ring">
+          <defs>
+            <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff9ecb" />
+              <stop offset="50%" stop-color="#c9b6f0" />
+              <stop offset="100%" stop-color="#8fe3c0" />
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring__track" cx="120" cy="120" r="105"></circle>
+          <circle id="timerRingProgress" class="timer-ring__progress" cx="120" cy="120" r="105"></circle>
+        </svg>
+        <div class="timer-center">
+          <p id="timerDisplay" class="timer-display mono">25:00</p>
+          <p id="timerState" class="timer-state mono" aria-live="polite">READY_</p>
+        </div>
+      </div>
+
+      <div class="timer-presets" role="group" aria-label="Timer duration presets">
+        <button class="preset-btn is-active" data-minutes="25" type="button">25 MIN</button>
+        <button class="preset-btn" data-minutes="50" type="button">50 MIN</button>
+        <button class="preset-btn" id="customPresetBtn" data-minutes="custom" type="button">CUSTOM</button>
+      </div>
+
+      <div id="customDurationWrap" class="custom-duration hidden">
+        <label for="customDurationInput" class="mono">MINUTES:</label>
+        <input id="customDurationInput" type="number" min="1" max="180" value="25" inputmode="numeric" />
+        <button id="applyCustomDuration" class="btn btn--ghost btn--small" type="button">SET</button>
+      </div>
+
+      <div class="timer-controls">
+        <button id="startBtn" class="btn btn--primary" type="button">START</button>
+        <button id="pauseBtn" class="btn btn--ghost" type="button" disabled>PAUSE</button>
+        <button id="resetBtn" class="btn btn--ghost" type="button">RESET</button>
+      </div>
+
+      <p id="sessionCount" class="session-count mono">SESSIONS TODAY: 0</p>
+    </section>
+
+    <section class="card tasks-card glass-panel tilt-left" aria-labelledby="tasksHeading">
+      <h2 id="tasksHeading" class="section-label mono">TODAY'S LITTLE THINGS ♡</h2>
+
+      <form id="taskForm" class="task-form">
+        <label for="taskInput" class="sr-only">Add a task</label>
+        <input id="taskInput" type="text" maxlength="80" placeholder="add something small..." autocomplete="off" />
+        <button type="submit" class="btn btn--primary" aria-label="Add task">ADD</button>
+      </form>
+
+      <ul id="taskList" class="task-list"></ul>
+      <p id="taskEmptyState" class="empty-state">nothing here yet ♡ add your first little thing.</p>
+      <p id="taskProgress" class="task-progress mono">0 / 0 DONE</p>
+    </section>
+
+    <section class="card goal-card glass-panel tilt-right" aria-labelledby="goalHeading">
+      <h2 id="goalHeading" class="section-label mono">TODAY'S GOAL</h2>
+
+      <div id="goalHearts" class="goal-hearts" aria-hidden="true"></div>
+      <p id="goalText" class="goal-text mono">0 / 4 SESSIONS</p>
+      <button id="goalEditBtn" class="btn btn--ghost btn--small" type="button">EDIT GOAL</button>
+
+      <form id="goalForm" class="goal-form hidden">
+        <label for="goalInput" class="sr-only">Daily session goal</label>
+        <input id="goalInput" type="number" min="1" max="12" value="4" />
+        <button type="submit" class="btn btn--primary btn--small">SAVE</button>
+      </form>
+    </section>
+
+    <button id="focusModeToggle" class="focus-mode-fab" type="button">
+      <span aria-hidden="true">◐</span> FOCUS MODE
+    </button>
+
+  </main>
+
+  <button id="exitFocusModeBtn" class="exit-focus-btn hidden" type="button">EXIT FOCUS MODE ✕</button>
+
+  <footer class="site-footer mono">
+    <p>made with ♡ for actually getting things done — FocusFlow, 2026</p>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
