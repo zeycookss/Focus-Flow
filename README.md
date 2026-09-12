@@ -155,3 +155,61 @@ Focus-Flow/
 ├── style.css
 ├── script.js
 └── README.md
+
+🚀 Installation
+Clone the repository
+git clone https://github.com/zeycookss/Focus-Flow.git
+Open the project folder.
+Open index.html with Live Server.
+Start focusing. ✦
+
+No additional installation or dependencies are required.
+
+🧠 Learning Goals
+
+This project helped me practice:
+
+JavaScript state management
+DOM manipulation
+Event handling
+LocalStorage
+CSS animations
+Responsive web design
+Glassmorphism UI
+SVG progress indicators
+Web Audio API
+Building a complete frontend from scratch
+Git & GitHub
+GitHub Pages deployment
+☁️ Future Improvements
+📊 Focus session history
+📅 Weekly focus statistics
+🎨 More visual themes
+🔊 Additional sound packs
+📆 Calendar integration
+📈 Study analytics
+☁️ Cross-device syncing
+📱 Progressive Web App support
+𐙚 Author
+
+Zainab Zulfiqar
+
+First-Year ICS Student
+Pakistan 🇵🇰
+
+GitHub:
+https://github.com/zeycookss
+
+🎀 Support
+
+If you like the project:
+
+⭐ Star the repository
+🍴 Fork it
+💭 Share your feedback
+
+<p align="center">
+
+Made with ♡, HTML, CSS, JavaScript & way too many pastel stickers.
+
+</p> ```
