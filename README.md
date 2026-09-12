@@ -154,17 +154,8 @@ Focus-Flow/
 ├── index.html
 ├── style.css
 ├── script.js
-└── README.md
-
-🚀 Installation
-Clone the repository
-git clone https://github.com/zeycookss/Focus-Flow.git
-Open the project folder.
-Open index.html with Live Server.
-Start focusing. ✦
-
-No additional installation or dependencies are required.
-
+└── README.me
+```
 🧠 Learning Goals
 
 This project helped me practice:
